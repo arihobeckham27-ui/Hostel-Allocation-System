@@ -1,0 +1,236 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+KYAMBOGO
+\includegraphics[width=1.08264in,height=1.05903in]{./media/image1.jpeg}UNIVERSITY
+
+FACULTY OF ENGINEERING
+
+DEPARTMENT OF MECHATRONICS AND BIOMEDICAL ENGINEERING
+
+COMPUTING II
+
+GROUP E EVENING
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+CHELANGAT ROBIN
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+25/U/BIE/05290/PE
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+MAKMOT WALTER & 25/U/BIE/05296/PE \\
+ARIHO BECKHAM & 25/U/BIE/01360/PE \\
+BYAMUKAMA BENERD AMOOTI & 25/U/BIE/01365/PE \\
+MULIIKA DERRICK & 25/U/BIO/05297/PD \\
+\end{longtable}
+}
+
+\textbf{1. Introduction}
+
+This report describes the design and implementation of the
+\textbf{Hostel Room Allocation System} developed in the C programming
+language. The system is designed to automate the process of registering
+students, managing room allocations, and enforcing priority policies
+based on specific institutional rules.
+
+\textbf{2. Problem Statement and Objectives}
+
+Manual hostel allocation is prone to human error, double-booking, and
+inefficient room utilization. This project aims to deliver a
+console-based application that achieves the following objectives:
+
+\begin{itemize}
+\item
+  \textbf{Student Registration:} Capture and store relevant student
+  data.
+\item
+  \textbf{Dynamic Search and Update:} Allow quick lookups and
+  modifications of existing allocations.
+\item
+  \textbf{Record Management:} Provide functionality to safely delete
+  records.
+\item
+  \textbf{Inventory Tracking:} Maintain and display real-time
+  availability of rooms.
+\item
+  \textbf{Rule Enforcement:} Automate allocation priority based on
+  special needs, year of study, and room preferences.
+\end{itemize}
+
+\textbf{3. System Design and Rules Implementation}
+
+\textbf{3.1 Data Structures}
+
+The system uses custom structures (struct) to represent key entities
+cleanly:
+
+\begin{itemize}
+\item
+  Student: Stores ID, Name, Year of Study, Special Needs Status, and
+  Room Preference.
+\item
+  Room: Stores Room Number, Type, Maximum Capacity, and Current
+  Occupancy.
+\end{itemize}
+
+\textbf{3.2 Rules Engine Logic}
+
+The program applies business logic to handle allocations automatically:
+
+\begin{itemize}
+\item
+  \textbf{Capacity Constraint:} Before allocation, the program checks if
+  current\_occupancy \textless{} max\_capacity.
+\item
+  \textbf{Priority Queueing:} Sorting algorithms or conditional filters
+  ensure students with special needs and final-year students are
+  processed first when room availability is low.
+\item
+  \textbf{Preference Matching:} The system matches the student's
+  room\_type\_preference with available inventory.
+\item
+  \textbf{Waiting List Management:} If all criteria fail and zero
+  matching rooms are free, the system flags the student and triggers a
+  waiting-list notification.
+\end{itemize}
+
+\textbf{4. Program Modules and Functionality}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2903}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.6974}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Module / Function}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Description}
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+registerStudent() & Collects and validates new student records. \\
+searchAllocation() & Searches records by Student ID or Room Number. \\
+updateAllocation() & Modifies room assignments or student details. \\
+deleteAllocation() & Frees up a room by removing an allocation
+record. \\
+displayAvailableRooms() & Lists all rooms that are not yet at full
+capacity. \\
+generateAllocationReport() & Outputs a complete breakdown, highlighting
+fully occupied rooms. \\
+\end{longtable}
+}
+
+\textbf{5. Testing and Sample Outputs}
+
+\textbf{Test Cases}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Normal Allocation:} Allocating a standard student to their
+  preferred room type.
+\item
+  \textbf{Priority Allocation:} Verifying a special-needs student
+  bypasses standard applicants for a limited room.
+\item
+  \textbf{Waiting List Trigger:} Attempting to book a student when all
+  corresponding rooms are at maximum capacity.
+\end{enumerate}
+
+\begin{quote}
+\textbf{6. Conclusion}
+\end{quote}
+
+The Hostel Room Allocation System successfully optimizes student housing
+workflows. By embedding structural checks directly into the memory and
+logic flow, it eliminates double-booking errors and ensures that
+priority rules (such as special needs considerations) are handled fairly
+and transparently.
+
+\end{document}
